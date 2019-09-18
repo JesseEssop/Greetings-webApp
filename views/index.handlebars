@@ -1,0 +1,35 @@
+<div class="container">
+    <div class="greetings">
+        <div class="box1">
+            <h1>Greetings</h1>
+        </div>
+        <form action="/settings" method="POST">
+            <div class="col-4" style="width:300px"> Name:
+                <input class="textArea" type="string" placeholder="ENTER NAME" name="name">
+                <span id="total"><span class="greetAmount">{{total}}</span> </span>
+            </div>
+
+            Select language below :
+
+            <div class="languages">
+                <label>
+                    <input type="radio" name="languageType" class="languageTypeRadio" value="english">
+                    <span class="English">English</span>
+                </label>
+                <label>
+                    <input type="radio" name="languageType" class="languageTypeRadio" value="afrikaans">
+                    <span class="Afrikaans">Afrikaans</span>
+                </label>
+                <label>
+                    <input type="radio" name="languageType" class="languageTypeRadio" value="xhosa">
+                    <span class="isiXhosa">isiXhosa</span>
+                </label>
+            </div>
+            <div>
+                <button class="button-primary greetBtn" type="sumbit" name="greet">GREET</button>
+                <button class="button-primary resetBtn" type="submit" name="reset">RESET</button>
+            </div>
+        </form>
+        <strong>Greeting:</strong>
+        <span class=""><span class="greetName">{{wave}}</span></span>
+    </div>
