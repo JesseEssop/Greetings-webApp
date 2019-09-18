@@ -1,0 +1,1 @@
+[![Build Status](https://travis-ci.org/JesseEssop/Greetings-webApp.svg?branch=master)](https://travis-ci.org/JesseEssop/Greetings-webApp)
