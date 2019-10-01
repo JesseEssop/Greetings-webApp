@@ -4,9 +4,16 @@
             <h1>Greetings</h1>
         </div>
         <form action="/settings" method="POST">
-            <div class="col-4" style="width:300px"> Name:
+            <div class="col-4" style="width:300px; margin-bottom: 20px"> Name:
                 <input class="textArea" type="string" placeholder="ENTER NAME" name="name">
-                <span id="total"><span class="greetAmount">{{total}}</span> </span>
+                <table>
+                    <tr>
+                        <td>
+                            <a href="/actions/greeted/">People Greeted:</a>
+                        </td>
+                        <td><span id="total"><span class="greetAmount">{{total}}</span> </span></td>
+                    </tr>
+                </table>
             </div>
 
             Select language below :
@@ -29,7 +36,8 @@
                 <button class="button-primary greetBtn" type="sumbit" name="greet">GREET</button>
                 <button class="button-primary resetBtn" type="submit" name="reset">RESET</button>
             </div>
-        </form>
+       
         <strong>Greeting:</strong>
-        <span class=""><span class="greetName">{{wave}}</span></span>
+        <span class=""><span class="greetName">{{wave}}</span></span> 
+        </form>
     </div>

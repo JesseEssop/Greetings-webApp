@@ -279,6 +279,7 @@ input{
 }
 .greetAmount{
     font-size: 20px;
+    margin-top: 20px;
 }
 button{
     margin: 20px;
@@ -286,7 +287,7 @@ button{
     background-color: goldenrod;
 }
 .languages{
-    margin-top: 15px;
+    margin-top: 25px;
     font-size: 20px;
 }
 button{

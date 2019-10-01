@@ -1,5 +1,6 @@
-module.exports = function GreetingsManager(refreshData) {
-    var keep = refreshData || {};
+module.exports = function GreetingsManager(pool) {
+    // console.log(pool)
+    var keep = pool || {};
     var counter = 0;
     var newName;
     var regex = /[0-9$@$!%*?&#^-_. +\[.*?\]]/;
@@ -12,9 +13,11 @@ module.exports = function GreetingsManager(refreshData) {
         return counter;
     }
 
-
     function addNewName(name) {
+        // var names = await pool.query('SELECT names FROM greetings')
         alreadyExist = false;
+        
+        
         if (name) {
             if (testNames(name)) {
                 var testData = [];
@@ -52,11 +55,7 @@ module.exports = function GreetingsManager(refreshData) {
         var english = "Hello, ";
         var afrikaans = "Hallo, ";
         var xhosa = "Molo, ";
-       
-        if (newName === undefined) {
-            end = "PLEASE ENTER VALID NAME";
-            return end
-        }
+
         if (languageType === "english") {
             end = english + newName;
 
@@ -68,6 +67,9 @@ module.exports = function GreetingsManager(refreshData) {
         if (languageType === "xhosa") {
             end = xhosa + newName;
 
+        }
+        else if (newName === undefined) {
+            end = "PLEASE ENTER VALID NAME";
         }
         return end;
     }
