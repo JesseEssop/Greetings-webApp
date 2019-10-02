@@ -296,3 +296,7 @@ button{
 .greetName{
     font-size: 20px;
 }
+.error{
+  color: crimson;
+  margin: 1em;
+}

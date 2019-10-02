@@ -5,32 +5,11 @@ const bodyParser = require('body-parser');
 const Greetings = require("./function/greetings");
 const app = express();
 const session = require('express-session');
-const pg = require("pg");
-const Pool = pg.Pool;
+const greet = Greetings();
 
-let useSSL = false;
-let local = process.env.LOCAL || false;
-if (process.env.DATABASE_URL && !local){
-    useSSL = true;
-}
 
-// which db connection to use
-const connectionString = process.env.DATABASE_URL || 'postgresql://codex:pg123@localhost:5432/my_products';
 
-const pool = new Pool({
-    connectionString,
-    ssl: useSSL
-});
-
-const greet = Greetings(pool);
-
-app.use(session({
-    secret:"56789",
-    resave: false,
-    saveUninitialized: true
-}));
-
-app.use(flash());
+// const greet = Greetings(pool);
 
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
@@ -52,10 +31,6 @@ app.post('/settings', function (req, res) {
     greet.add(req.body.name);
     const languageChoice = req.body.languageType;
     console.log(greet.testLang(languageChoice));
-    res.redirect('/');
-});
-
-app.post('/action', function (req, res) {
     res.redirect('/');
 });
 

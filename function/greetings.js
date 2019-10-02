@@ -53,10 +53,6 @@ module.exports = function GreetingsManager(refreshData) {
         var afrikaans = "Hallo, ";
         var xhosa = "Molo, ";
        
-        if (newName === undefined) {
-            end = "PLEASE ENTER VALID NAME";
-            return end
-        }
         if (languageType === "english") {
             end = english + newName;
 
