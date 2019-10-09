@@ -1,5 +1,5 @@
-create table Greetings{
-	name text,
-	language text,
-	count integer
-}
+create table mynames(
+	greetednames text,
+	greetlanguage text,
+	greetcount integer
+);

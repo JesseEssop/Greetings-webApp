@@ -297,6 +297,8 @@ button{
     font-size: 20px;
 }
 .error{
-  color: crimson;
+  color: rgb(255, 0, 0);
   margin: 1em;
+  font-size: 1.5em;
+  font-family: 'Lato', Helvetica, sans-serif;
 }

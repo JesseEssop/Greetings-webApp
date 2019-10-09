@@ -5,6 +5,10 @@ module.exports = function GreetingsManager(refreshData) {
     var regex = /[0-9$@$!%*?&#^-_. +\[.*?\]]/;
     var alreadyExist = false;
     var end;
+    let error = false;
+    var tabelNames = []
+    var langChoice;
+
 
     function updatesCounter() {
         var keys = Object.keys(keep);
@@ -14,6 +18,7 @@ module.exports = function GreetingsManager(refreshData) {
 
 
     function addNewName(name) {
+        newName = undefined;
         alreadyExist = false;
         if (name) {
             if (testNames(name)) {
@@ -30,6 +35,7 @@ module.exports = function GreetingsManager(refreshData) {
 
                         keep[newName] = 0;
                         updatesCounter();
+
                     }
                 }
             }
@@ -38,37 +44,50 @@ module.exports = function GreetingsManager(refreshData) {
 
 
     function greetLanguage(languageType) {
+        langChoice = languageType
         var display;
         if (alreadyExist === true) {
             display = "Name already greeted";
             return display;
         }
-        display = testLang(languageType);
+        display = testLang(langChoice);
         return display;
     }
 
 
     function testLang(languageType) {
+        langChoice = languageType
+        // console.log(languageType);
+        // console.log(newName);
         var english = "Hello, ";
         var afrikaans = "Hallo, ";
         var xhosa = "Molo, ";
-       
+
         if (newName === undefined) {
             end = "PLEASE ENTER VALID NAME";
-            return end
-        }
-        if (languageType === "english") {
+            return end;
+        } else if (langChoice === "english") {
             end = english + newName;
 
-        }
-        if (languageType === "afrikaans") {
+        } else if (langChoice === "afrikaans") {
             end = afrikaans + newName;
 
-        }
-        if (languageType === "xhosa") {
+        } else if (langChoice === "xhosa") {
             end = xhosa + newName;
 
         }
+        for (var i = 0; i < tabelNames.lenght; i++) {
+            if (tabelNames[i].name === newName) {
+                end = "Name already entered"
+            }
+            else {
+                tabelNames.push({
+                    name: newName,
+                    lang: langChoice
+                });
+            }
+        }
+
         return end;
     }
 
@@ -85,8 +104,16 @@ module.exports = function GreetingsManager(refreshData) {
 
     function displayRecords() {
         return keep;
+
     }
 
+    function errorState() {
+        return error
+    }
+
+    function showNames() {
+        return tabelNames
+    }
 
     return {
         add: addNewName,
@@ -94,6 +121,8 @@ module.exports = function GreetingsManager(refreshData) {
         records: displayRecords,
         greet: greetLanguage,
         testLang,
-        testNames
+        testNames,
+        errorState,
+        showNames
     }
 }

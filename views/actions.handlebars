@@ -1,37 +1,45 @@
 <style>
-table, td, th {    
-    border: 1px solid #ddd;
-    text-align: left;
-}
+    table,
+    td,
+    th {
+        border: 1px solid #ddd;
+        text-align: left;
+    }
 
-table {
-    border-collapse: collapse;
-    width: 80%;
-}
+    table {
+        border-collapse: collapse;
+        width: 25%;
+    }
 
-th, td {
-    padding: 15px;
-}
+    th,
+    td {
+        padding: 15px;
+    }
 
+    html,
+    body {
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+    }
 </style>
 
 <div class="row">
-    <h1>Actions</h1>
+    <h1 style="margin: 0px">Greeted Users</h1>
 
     <table>
         <tr>
             <th>Name</th>
             <th>Language</th>
-            <th>Times</th>
+            {{!-- <th>Times</th> --}}
         </tr>
         {{#each actions}}
         <div class="row">
-        <tr>
-            <td>{{name}}</td>
-            <td>{{lang}}</td>
-            <td>{{count}}</td>
-        </tr>
-        {{/each}}
+            <tr>
+                <td>{{name}}</td>
+                <td>{{lang}}</td>
+                {{!-- <td>{{count}}</td> --}}
+            </tr>
+            {{/each}}
         </div>
-    </tabel>
+        </tabel>
 </div>

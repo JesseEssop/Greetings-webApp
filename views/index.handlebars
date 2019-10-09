@@ -9,7 +9,7 @@
                 <table>
                     <tr>
                         <td>
-                            <a href="/actions/greeted/">People Greeted:</a>
+                            <a href="/greet">People Greeted:</a>
                         </td>
                         <td><span id="total"><span class="greetAmount">{{total}}</span> </span></td>
                     </tr>
@@ -37,11 +37,9 @@
                 <button class="button-primary resetBtn" type="submit" name="reset">RESET</button>
             </div>
 
-            <strong>Greeting:</strong>
-            <span class=""><span class="greetName">{{wave}}</span></span>
-
             <div class="error">
-                {{message.error}}
+                <strong>Greeting:</strong>
+                {{messages.message}}
             </div>
         </form>
     </div>
