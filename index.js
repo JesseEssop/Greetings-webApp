@@ -2,12 +2,26 @@ const express = require('express');
 const flash = require('express-flash');
 const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser');
-const Greetings = require("./function/greetings");
 const app = express();
 const session = require('express-session');
-const greet = Greetings();
 const routesFact = require('./greet-routes');
-const greetRoute = routesFact(greet);
+
+
+
+// const {Client} = require('pg');
+// const connectionString = 'postgresql://codex:codex123@localhost:5432/myusers';
+
+// const client = new Client({
+//     connectionString : connectionString
+// })
+
+// client.connect()
+// .then(() => console.log("Connected successfully"))
+// // .then(() => client.query( `insert into mynames (greetednames, greetlanguage, greetcount) values ($1,$2, $3) `))
+// .then(() => client.query("select * from mynames"))
+// // .then(results => console.log(results.rows))
+// .catch(e => console.log(e))
+
 
 const pg = require('pg');
 const Pool = pg.Pool;
@@ -24,31 +38,7 @@ const pool = new Pool({
     connectionString,
     ssl: useSSL
 });
-
-// function cb(err, result) {
-//     console.log(result.rows);
-// }
-
-// const sql = `insert into mynames 
-// (greetednames, greetlanguage, greetcount)
-// values ($1,$2, $3) `;
-
-// pool.query(sql, ["Odwa", "xhosa", 1], function (err, results) {
-//     console.log(err);
-// });
-
-
-// async function doSelect() {
-//     return await pool.query("select * from mynames");
-// }
-
-// async function doCall() {
-//     const result = await doSelect();
-//     console.log(result.rows);
-// }
-
-// doCall('done');
-
+const greetRoute = routesFact(pool);
 
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');

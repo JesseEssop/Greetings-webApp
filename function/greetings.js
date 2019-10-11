@@ -1,44 +1,61 @@
-module.exports = function GreetingsManager(refreshData) {
-    var keep = refreshData || {};
-    var counter = 0;
+module.exports = function GreetingsManager(pool) {
+
+    var keep = {};
+    // var counter = 0;
+    let nameStore = [];
     var newName;
     var regex = /[0-9$@$!%*?&#^-_. +\[.*?\]]/;
     var alreadyExist = false;
     var end;
     let error = false;
-    var tabelNames = []
     var langChoice;
 
-
     function updatesCounter() {
-        var keys = Object.keys(keep);
-        counter = keys.length;
-        return counter;
+        return nameStore.length;
     }
 
 
-    function addNewName(name) {
-        newName = undefined;
+    async function addNewName(name) {
+
         alreadyExist = false;
-        if (name) {
-            if (testNames(name)) {
-                var testData = [];
-                testData = Object.keys(keep);
 
-                for (var x = 0; x < testData.length; x++) {
-                    if (testData[x] === newName) {
-                        alreadyExist = true;
-                    }
-                }
-                if (alreadyExist === false) {
-                    if (keep[newName] === undefined) {
 
-                        keep[newName] = 0;
-                        updatesCounter();
+        if (testNames(name)) {
 
-                    }
+            var nameS = {
+                name,
+                count: 1
+            }
+
+            let cheese = await pool.query('SELECT * FROM mynames WHERE greeted_names = $1', [name]);
+
+
+            if (name === '') {
+                return end = "Please enter valid name"
+            }
+            else {
+                if (cheese.rowCount === 1) {
+                    await pool.query('UPDATE mynames SET greeted_count = greeted_count + 1 WHERE greeted_names = $1', [name])
+                } else {
+                    await pool.query('insert into mynames (greeted_names, greeted_count) values ($1, $2)', [name, 1]);
                 }
             }
+
+            for (var x = 0; x < nameStore.length; x++) {
+                console.log(nameStore[x].name)
+                if (nameS.name === nameStore[x].name) {
+                    alreadyExist = true;
+                    nameStore[x].count += 1;
+                    console.log(keep)
+
+                }
+
+            }
+            if (alreadyExist === false) {
+                nameStore.push(nameS)
+                updatesCounter()
+            }
+
         }
     }
 
@@ -62,32 +79,16 @@ module.exports = function GreetingsManager(refreshData) {
         var english = "Hello, ";
         var afrikaans = "Hallo, ";
         var xhosa = "Molo, ";
-
-        if (newName === undefined) {
-            end = "PLEASE ENTER VALID NAME";
-            return end;
-        } else if (langChoice === "english") {
+        if (langChoice === "english") {
             end = english + newName;
 
-        } else if (langChoice === "afrikaans") {
+        } if (langChoice === "afrikaans") {
             end = afrikaans + newName;
 
-        } else if (langChoice === "xhosa") {
+        } if (langChoice === "xhosa") {
             end = xhosa + newName;
 
         }
-        for (var i = 0; i < tabelNames.lenght; i++) {
-            if (tabelNames[i].name === newName) {
-                end = "Name already entered"
-            }
-            else {
-                tabelNames.push({
-                    name: newName,
-                    lang: langChoice
-                });
-            }
-        }
-
         return end;
     }
 
@@ -112,7 +113,12 @@ module.exports = function GreetingsManager(refreshData) {
     }
 
     function showNames() {
-        return tabelNames
+        return nameStore
+    }
+
+    async function greetReset() {
+        await pool.query('delete from mynames');
+        nameStore = [];
     }
 
     return {
@@ -123,6 +129,7 @@ module.exports = function GreetingsManager(refreshData) {
         testLang,
         testNames,
         errorState,
-        showNames
+        showNames,
+        greetReset
     }
 }
