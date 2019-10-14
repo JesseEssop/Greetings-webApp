@@ -38,9 +38,9 @@ module.exports = function GreetingsManager(pool) {
             }
             else {
                 if (cheese.rowCount === 1) {
-                    await pool.query('UPDATE mynames SET greeted_count = greeted_count + 1 WHERE greeted_names = $1', [name])
+                    await pool.query('UPDATE mynames SET greet_count = greet_count + 1 WHERE greeted_names = $1', [name])
                 } else {
-                    await pool.query('insert into mynames (greeted_names, greeted_count) values ($1, $2)', [name, 1]);
+                    await pool.query('insert into mynames (greeted_names, greet_count) values ($1, $2)', [name, 1]);
                 }
             }
            
