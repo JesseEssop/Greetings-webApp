@@ -130,7 +130,6 @@ module.exports = function GreetingsManager(pool) {
 
     async function greetReset() {
         await pool.query('delete from mynames');
-        nameStore = [];
     }
 
     async function showDB(){
