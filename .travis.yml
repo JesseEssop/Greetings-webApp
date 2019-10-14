@@ -4,5 +4,5 @@ node_js:
 services:
   - postgresql
 env: 
-  - DATABASE_URL='postgresql://codex:codex123@localhost:5432/myusers'
+  - DATABASE_URL='postgresql://postgres@localhost:5432/myusers'
 
