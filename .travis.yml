@@ -7,4 +7,6 @@ env:
   - DATABASE_URL='postgresql://postgres@localhost:5432/myusers'
 before_script:
   - psql -c 'create database myusers;' -U postgres
+  - psql -U postgres -d mynames -a -f table.sql
 
+ 
