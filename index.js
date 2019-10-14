@@ -64,7 +64,7 @@ app.post('/settings', greetRoute.settingsRoute);
 
 app.get('/greet', greetRoute.peopleGreeted)
 
-const PORT = process.env.PORT || 3006;
+const PORT = process.env.PORT || 9025;
 
 app.listen(PORT, function () {
     console.log("App started at port:", PORT)
