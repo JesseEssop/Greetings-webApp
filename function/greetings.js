@@ -60,11 +60,12 @@ module.exports = function GreetingsManager(pool) {
         var afrikaans = "Hallo, ";
         var xhosa = "Molo, ";
 
-        if (newName === '' || newName === undefined) {
-            end = "PLEASE ENTER VALID NAME"
-        }
+       
         if(langChoice === '' || langChoice === undefined){
             end = "PLEASE SELECT LANGAUGE"
+        }
+        if (newName === undefined || newName === "") {
+            end = "PLEASE ENTER VALID NAME"
         }
         else {
 
