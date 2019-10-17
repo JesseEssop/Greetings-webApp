@@ -4,15 +4,14 @@ module.exports = function GreetRoutes(pool) {
     const greet = Greetings(pool);
 
    async function indexRoute(req, res) {
-    //    await greet.add(req.body.name);
-
+   
         res.render('index', {
             total: await greet.count()
         })
     }
 
    async function settingsRoute(req, res) {
-        // console.log(req.body)
+      
         if (req.body.reset === 'reset') {
            await greet.greetReset();
         } else {

@@ -2,7 +2,7 @@ module.exports = function GreetingsManager(pool) {
 
     var keep = {};
     // var counter = 0;
-    
+
     var newName;
     var regex = /[0-9$@$!%*?&#^-_. +\[.*?\]]/;
     var alreadyExist = false;
@@ -22,15 +22,9 @@ module.exports = function GreetingsManager(pool) {
 
         alreadyExist = false;
 
-
         if (testNames(name)) {
 
-            // var nameS = {
-            //     name,
-            //     count: 1
-            // }
-           
-            cheese = await pool.query('SELECT * FROM mynames WHERE greeted_names = $1', [name]);
+            cheese = await pool.query('SELECT * FROM mynames WHERE greeted_names = $1', [newName]);
 
 
             if (name === '') {
@@ -38,28 +32,11 @@ module.exports = function GreetingsManager(pool) {
             }
             else {
                 if (cheese.rowCount === 1) {
-                    await pool.query('UPDATE mynames SET greet_count = greet_count + 1 WHERE greeted_names = $1', [name])
+                    await pool.query('UPDATE mynames SET greet_count = greet_count + 1 WHERE greeted_names = $1', [newName])
                 } else {
-                    await pool.query('insert into mynames (greeted_names, greet_count) values ($1, $2)', [name, 1]);
+                    await pool.query('insert into mynames (greeted_names, greet_count) values ($1, $2)', [newName, 1]);
                 }
             }
-           
-
-            // for (var x = 0; x < nameStore.length; x++) {
-            //     // console.log(nameStore[x].name)
-            //     if (nameS.name === nameStore[x].name) {
-            //         alreadyExist = true;
-            //         nameStore[x].count += 1;
-            //         // console.log(keep)
-
-            //     }
-
-            // }
-            // if (alreadyExist === false) {
-            //     nameStore.push(nameS)
-            //     updatesCounter()
-            // }
-
         }
     }
 
@@ -78,14 +55,16 @@ module.exports = function GreetingsManager(pool) {
 
     function testLang(languageType) {
         langChoice = languageType
-        // console.log(languageType);
-        // console.log(newName);
+        
         var english = "Hello, ";
         var afrikaans = "Hallo, ";
         var xhosa = "Molo, ";
 
         if (newName === '' || newName === undefined) {
             end = "PLEASE ENTER VALID NAME"
+        }
+        if(langChoice === '' || langChoice === undefined){
+            end = "PLEASE SELECT LANGAUGE"
         }
         else {
 
@@ -99,7 +78,7 @@ module.exports = function GreetingsManager(pool) {
             } if (langChoice === "xhosa") {
                 end = xhosa + newName;
 
-            }
+            } 
         }
         return end;
     }
@@ -110,8 +89,9 @@ module.exports = function GreetingsManager(pool) {
         if (wack !== true) {
             newName = input.trim().toLowerCase();
             newName = newName.charAt(0).toUpperCase() + newName.slice(1);
-            return true;
+            return newName;
         }
+        return newName
     }
 
 
@@ -132,7 +112,7 @@ module.exports = function GreetingsManager(pool) {
         await pool.query('delete from mynames');
     }
 
-    async function showDB(){
+    async function showDB() {
 
         macaroni = await pool.query('select * from mynames');
         return macaroni.rows
