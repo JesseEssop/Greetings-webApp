@@ -45,7 +45,12 @@ app.use(bodyParser.json())
 app.get('/', greetRoute.indexRoute);
 app.post('/settings', greetRoute.settingsRoute);
 
-app.get('/greet', greetRoute.peopleGreeted)
+app.get('/greet', greetRoute.peopleGreeted);
+
+app.post('/return', function (req, res){
+    res.redirect('/');
+})
+
 
 const PORT = process.env.PORT || 8080;
 
